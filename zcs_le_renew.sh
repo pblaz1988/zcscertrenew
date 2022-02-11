@@ -32,7 +32,7 @@
 #    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 #    DEALINGS IN THE SOFTWARE.
 
-DOMAINNAME=some_postoffice.somedomain.si   # your domain (only for single domain at the moment
+DOMAINNAME=some_postoffice.some_domain.si  # your domain (only for single domain at the moment
 PREFFEREDCHAIN= "ISRG Root X1"             # don't touch
 LETEMP=/opt/zimbra/ssl/le-new              # cert directory with zimbra user read permissions
 
