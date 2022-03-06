@@ -50,12 +50,16 @@ yes | cp /etc/letsencrypt/live/$DOMAINNAME/* $LETEMP/
 chmod 644 $LETEMP/*
 
 # verify chain with zmcertmgr
-runuser -u zimbra -- /opt/zimbra/bin/zmcertmgr verifycrt comm $LETEMP/privkey.pem $LETEMP/cert.pem $LETEMP/fullchain.pem
+cmd = $( printf '%q ' "/opt/zimbra/bin/zmcertmgr verifycrt comm $LETEMP/privkey.pem $LETEMP/cert.pem $LETEMP/fullchain.pem")
+runuser -u zimbra -c "$cmd"
 # do backup of old certificates
-runuser -u zimbra -- cp -a /opt/zimbra/ssl/zimbra /opt/zimbra/ssl/zimbra.$(date +"%YYmYd")
+cmd = $( printf '%q ' "cp -a /opt/zimbra/ssl/zimbra /opt/zimbra/ssl/zimbra.$(date +"%YYmYd")" )
+runuser -u zimbra -c "$cmd"
 # deploy certificates - private key
-runuser -u zimbra -- yes | cp $LETEMP/privkey.pem /opt/zimbra/ssl/zimbra/commercial/commercial.key
+cmd = $( printf '%q ' "yes | cp $LETEMP/privkey.pem /opt/zimbra/ssl/zimbra/commercial/commercial.key" )
+runuser -u zimbra -c "$cmd"
 # deploy chain
-runuser -u zimbra -- /opt/zimbra/bin/zmcertmgr deploycrt comm $LETEMP/cert.pem $LETEMP/fullchain.pem
+cmd = $( printf '%q ' "/opt/zimbra/bin/zmcertmgr deploycrt comm $LETEMP/cert.pem $LETEMP/fullchain.pem" )
+runuser -u zimbra -c "$cmd"
 # restart zimbra services
 runuser -u zimbra -- /opt/zimbra/bin/zmcontrol restart
