@@ -4,7 +4,7 @@
 # ------------------
 
 #
-# version 0.1alpha
+# version 0.2alpha
 #
 # This script renews certificates and registers it on ZCS.
 #
