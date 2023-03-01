@@ -37,10 +37,15 @@ PREFFEREDCHAIN= "ISRG Root X1"             # don't touch
 LETEMP=/opt/zimbra/ssl/le-new              # cert directory with zimbra user read permissions
 
 # generate certificats
-certbot certonly --standalone --force-renewal --preferred-chain "$PREFERREDCHAIN" -d $DOMAINNAME
+# deprecated: certbot certonly --standalone --force-renewal --preferred-chain "$PREFERREDCHAIN" -d $DOMAINNAME
+# after november 2022 - specify RSA
+certbot certonly --standalone --force-renewal --key-type rsa --preferred-chain "$PREFERREDCHAIN" -d $DOMAINNAME
 
-# create fullchain (copy first, then append)
-cp /etc/letsencrypt/live/$DOMAINNAME/chain.pem /etc/letsencrypt/live/$DOMAINNAME/fullchain.pem 
+# create fullchain (overwrite first, then append)
+# deprecated: cp /etc/letsencrypt/live/$DOMAINNAME/chain.pem /etc/letsencrypt/live/$DOMAINNAME/fullchain.pem
+# after november 2022 - replace fullchain
+yes | cp /etc/letsencrypt/live/$DOMAINNAME/chain.pem /etc/letsencrypt/live/$DOMAINNAME/fullchain.pem
+
 # pipe rootcert to fullchain (only first time - still alpha version)
 curl https://letsencrypt.org/certs/isrgrootx1.pem.txt >> /etc/letsencrypt/live/$DOMAINNAME/fullchain.pem
 
