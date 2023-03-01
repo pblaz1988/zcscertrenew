@@ -58,7 +58,7 @@ chmod 644 $LETEMP/*
 cmd = $( printf '%q ' "/opt/zimbra/bin/zmcertmgr verifycrt comm $LETEMP/privkey.pem $LETEMP/cert.pem $LETEMP/fullchain.pem")
 runuser -u zimbra -c "$cmd"
 # do backup of old certificates
-cmd = $( printf '%q ' "cp -a /opt/zimbra/ssl/zimbra /opt/zimbra/ssl/zimbra.$(date +"%YYmYd")" )
+cmd = $( printf '%q ' "cp -a /opt/zimbra/ssl/zimbra /opt/zimbra/ssl/zimbra.$(date +"%Y%m%d%H%M%S")" )
 runuser -u zimbra -c "$cmd"
 # deploy certificates - private key
 cmd = $( printf '%q ' "yes | cp $LETEMP/privkey.pem /opt/zimbra/ssl/zimbra/commercial/commercial.key" )
